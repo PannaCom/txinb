@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Taxi nội bài";
+}
+
+@{
+    string url = Request.Url.Authority;
+    if (Request.ServerVariables["HTTPS"] == "on")
+    {
+        url = "https://" + url;
+    }
+    else
+    {
+        url = "http://" + url;
+    }
+}
+
+@section metatags {
+    <meta name="description" content="Taxi nội bài">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="index,follow,noodp">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:type" content="Trang chủ">
+    <meta property="og:url" content="@url">
+    <meta property="og:title" content="Taxi nội bài">
+    <meta property="og:description" content="Taxi nội bài">
+    <meta property="og:image" itemprop="thumbnailUrl" content="">
+}
+
+
+
+@section MainBanner {
+    @*@{Html.RenderAction("LoadProductNewHot");}*@
+<h1>Trang chủ</h1>
+}
+
+@*@Html.Partial("_SectionSearchHome")
+
+@Html.Partial("_SectionOfficeType")
+
+@{Html.RenderAction("LoadAllBuilds");}
+
+@Html.Partial("_SectionRegisterEmail")
+
+@{Html.RenderAction("LoadCompnay", "Home");}
+
+@Html.Partial("_SectionNumCounter")
+
+@Html.Partial("_SectionWhyChooseWe")*@
