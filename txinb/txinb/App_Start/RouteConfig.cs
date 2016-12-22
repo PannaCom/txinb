@@ -14,8 +14,8 @@ namespace txinb
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-               "Admin",
-               "admin/dashboard",
+               "AdminPanel",
+               "admin",
                new { controller = "Admin", action = "Index" }
              );
 

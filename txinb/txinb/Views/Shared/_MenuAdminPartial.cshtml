@@ -1,0 +1,74 @@
+﻿<ul class="nav" id="side-menu">
+    <li>
+        <a href="/" target="_blank"><i class="fa icon-home fa-fw"></i> Trang chủ</a>
+    </li>
+    @if (User.IsInRole("Administrator"))
+    {
+        <li>
+            <a href="#"><i class="fa fa-user fa-fw"></i> Cài đặt tài khoản <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li><a href="/admin/profile/update">Cập nhật thông tin</a></li>
+                <li><a href="/admin/profile/changepass">Thay đổi mật khẩu</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-building fa-fw"></i> Quản lý tòa nhà<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li>@Html.RouteLink("Thêm danh mục tòa nhà", "AdminAddBuild")</li>
+                <li>@Html.RouteLink("Danh sách tòa nhà", "AdminListBuilds")</li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-building-o fa-fw"></i> Quản lý văn phòng<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li>@Html.RouteLink("Thêm văn phòng", "AdminAddOffice")</li>
+                <li>@Html.RouteLink("Danh sách văn phòng", "AdminListOffices")</li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-bars fa-fw"></i> Quản lý menu<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li><a href="/admin/menu/add">Thêm menu</a></li>
+                <li><a href="/admin/list/menus">Danh sách menu</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-map-marker fa-fw"></i> Quản lý địa điểm<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li><a href="/admin/city/add">Thêm mới địa điểm</a></li>
+                <li><a href="/admin/list/citys">Danh sách địa điểm</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-medkit fa-fw"></i> Quản lý dịch vụ văn phòng<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li>@Html.RouteLink("Thêm mới dịch vụ", "AdminAddService")</li>
+                <li>@Html.RouteLink("Danh sách dịch vụ", "AdminListServices")</li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-send fa-fw"></i> Quản lý banner quảng cáo<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li>@Html.RouteLink("Thêm mới quảng cáo", "AdminAddBaner")</li>
+                <li>@Html.RouteLink("Danh sách quảng cáo", "AdminListBaners")</li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#"><i class="fa fa-bell-o fa-fw"></i> Quản lý tin tức<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                <li>@Html.RouteLink("Thêm danh mục tin tức", "AdminAddCat")</li>
+                <li>@Html.RouteLink("Danh mục tin tức", "AdminListCats")</li>
+                <li>@Html.RouteLink("Thêm tin tức", "AdminAddNewBlog")</li>
+                <li>@Html.RouteLink("Quản lý tin tức", "AdminListNewBlogs")</li>
+            </ul>
+        </li>
+    }
+</ul>
+

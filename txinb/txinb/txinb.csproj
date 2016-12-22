@@ -116,6 +116,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -196,6 +198,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -203,8 +206,44 @@
     </Compile>
     <Compile Include="Helpers\configs.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\cat.cs">
+      <DependentUpon>txinbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\product.cs">
+      <DependentUpon>txinbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\product_img.cs">
+      <DependentUpon>txinbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>txinbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\txinbModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>txinbModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\txinbModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>txinbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\txinbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>txinbModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>txinbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserClaim.cs">
+      <DependentUpon>txinbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserLogin.cs">
+      <DependentUpon>txinbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewEngines\ThemedRazorViewEngine.cs" />
@@ -352,6 +391,23 @@
     <Content Include="Content\admin\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\admin\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\admin\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <EntityDeploy Include="Models\txinbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>txinbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\txinbModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>txinbModel.edmx</DependentUpon>
+      <LastGenOutput>txinbModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\txinbModel.edmx.diagram">
+      <DependentUpon>txinbModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\txinbModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>txinbModel.edmx</DependentUpon>
+      <LastGenOutput>txinbModel.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="images\chosen-sprite%402x.png" />
     <Content Include="images\chosen-sprite.png" />
@@ -493,13 +549,20 @@
     <Content Include="Themes\default\Views\Shared\_scriptgoogleapi.cshtml" />
     <Content Include="Themes\default\Views\Shared\_script_googleanalystic.cshtml" />
     <Content Include="Themes\default\Views\Home\_SectionOfficeHot.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Shared\_MenuAdminPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
