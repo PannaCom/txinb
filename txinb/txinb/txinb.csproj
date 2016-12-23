@@ -199,8 +199,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -235,6 +237,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>txinbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\txinbViewModel.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>txinbModel.tt</DependentUpon>
     </Compile>
@@ -490,7 +493,9 @@
     <Content Include="Themes\default\Content\js\range-slider.js" />
     <Content Include="Themes\default\Content\js\waypoints-min.js" />
     <Content Include="Themes\default\Content\style.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -552,10 +557,14 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Shared\_MenuAdminPartial.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Cats\Add.cshtml" />
+    <Content Include="Views\Cats\_childCatPartial.cshtml" />
+    <Content Include="Views\Cats\_lstCatPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

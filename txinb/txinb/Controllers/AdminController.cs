@@ -13,6 +13,11 @@ namespace txinb.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            using (txinbEntities db = new txinbEntities())
+            {
+                ViewBag.SoDanhMuc = db.cats.Count();
+                ViewBag.SoSanPham = db.products.Count();
+            }
             return View();
         }
     }
