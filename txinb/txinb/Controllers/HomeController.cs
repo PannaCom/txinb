@@ -111,7 +111,7 @@ namespace txinb.Controllers
             string _menu = "";
             foreach (var item in menu)
             {
-                var li = string.Format("<li><a href='danh-muc/{0}-{1}'>{2}</a>", item.cat_url, item.cat_id, item.cat_name);
+                var li = string.Format("<li><a href='/danh-muc/{0}-{1}'>{2}</a>", item.cat_url, item.cat_id, item.cat_name);
                 _menu += li + "</li>";
             }
             return PartialView("_MenuPartial", _menu);
