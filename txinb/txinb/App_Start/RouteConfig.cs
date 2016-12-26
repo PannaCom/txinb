@@ -92,31 +92,41 @@ namespace txinb
             );
             #endregion
 
-            routes.MapRoute(
-                "chitietsanpham",
-                "san-pham/{danhmuc}/{tensanpham}-{id}",
-                new { controller = "Home", action = "ProductDetail", danhmuc = UrlParameter.Optional, tensanpham = UrlParameter.Optional, id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    "chitietsanpham",
+            //    "san-pham/{danhmuc}/{tensanpham}-{id}",
+            //    new { controller = "Home", action = "ProductDetail", danhmuc = UrlParameter.Optional, tensanpham = UrlParameter.Optional, id = UrlParameter.Optional }
+            //);
 
             // Chi tiết sản phẩm
-            //routes.Add("chitietsanpham", new SeoFriendlyRoute("san-pham/{danhmuc}/{tensanpham}-{id}",
-            //    new RouteValueDictionary(
-            //        new
-            //        {
-            //            controller = "Home",
-            //            action = "ProductDetail",
-            //            danhmuc = UrlParameter.Optional,
-            //            tensanpham = UrlParameter.Optional,
-            //            id = UrlParameter.Optional
-            //        }),
-            //    new MvcRouteHandler()));
+            routes.Add("chitietsanpham", new SeoFriendlyRoute("san-pham/{danhmuc}/{tensanpham}-{id}",
+                new RouteValueDictionary(
+                    new
+                    {
+                        controller = "Home",
+                        action = "ProductDetail",
+                        danhmuc = UrlParameter.Optional,
+                        tensanpham = UrlParameter.Optional,
+                        id = UrlParameter.Optional
+                    }),
+                new MvcRouteHandler()));
 
             // danh mục sản phẩm
-            routes.MapRoute(
-                "danhmucsanpham",
-                "danh-muc/{url}-{id}",
-                new { controller = "Home", action = "ProductCat", id = UrlParameter.Optional, url = UrlParameter.Optional }
-            );
+            routes.Add("danhmucsanpham", new SeoFriendlyRoute("danh-muc/{url}-{id}",
+                new RouteValueDictionary(
+                    new
+                    {
+                        controller = "Home",
+                        action = "ProductCat",
+                        url = UrlParameter.Optional,
+                        id = UrlParameter.Optional
+                    }),
+                new MvcRouteHandler()));
+            //routes.MapRoute(
+            //    "danhmucsanpham",
+            //    "danh-muc/{url}-{id}",
+            //    new { controller = "Home", action = "ProductCat", id = UrlParameter.Optional, url = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
                 name: "Default",
@@ -128,43 +138,43 @@ namespace txinb
         }
     }
 
-    //public class SeoFriendlyRoute : Route
-    //{
-    //    public SeoFriendlyRoute(string url, RouteValueDictionary defaults, IRouteHandler routeHandler)
-    //        : base(url, defaults, routeHandler)
-    //    {
-    //    }
+    public class SeoFriendlyRoute : Route
+    {
+        public SeoFriendlyRoute(string url, RouteValueDictionary defaults, IRouteHandler routeHandler)
+            : base(url, defaults, routeHandler)
+        {
+        }
 
-    //    public override RouteData GetRouteData(HttpContextBase httpContext)
-    //    {
-    //        var routeData = base.GetRouteData(httpContext);
+        public override RouteData GetRouteData(HttpContextBase httpContext)
+        {
+            var routeData = base.GetRouteData(httpContext);
 
-    //        if (routeData != null)
-    //        {
-    //            if (routeData.Values.ContainsKey("id"))
-    //                routeData.Values["id"] = GetIdValue(routeData.Values["id"]);
-    //        }
+            if (routeData != null)
+            {
+                if (routeData.Values.ContainsKey("id"))
+                    routeData.Values["id"] = GetIdValue(routeData.Values["id"]);
+            }
 
-    //        return routeData;
-    //    }
+            return routeData;
+        }
 
-    //    private object GetIdValue(object id)
-    //    {
-    //        if (id != null)
-    //        {
-    //            string idValue = id.ToString();
+        private object GetIdValue(object id)
+        {
+            if (id != null)
+            {
+                string idValue = id.ToString();
 
-    //            var regex = new Regex(@"^(?<id>\d+).*$");
-    //            var match = regex.Match(idValue);
+                var regex = new Regex(@"^(?<id>\d+).*$");
+                var match = regex.Match(idValue);
 
-    //            if (match.Success)
-    //            {
-    //                return match.Groups["id"].Value;
-    //            }
-    //        }
+                if (match.Success)
+                {
+                    return match.Groups["id"].Value;
+                }
+            }
 
-    //        return id;
-    //    }
-    //}
+            return id;
+        }
+    }
 
 }
