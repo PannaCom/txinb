@@ -15,6 +15,7 @@ namespace txinb.Models
     public partial class product_img
     {
         public long img_id { get; set; }
+        public string img_url { get; set; }
         public string img_title { get; set; }
         public string img_alt { get; set; }
         public Nullable<long> product_id { get; set; }

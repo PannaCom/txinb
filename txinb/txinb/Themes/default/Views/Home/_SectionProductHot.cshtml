@@ -1,0 +1,32 @@
+﻿@using txinb.Models
+@using txinb.Helpers
+@model List<product>
+
+<div class="kf_banner_wrap">
+    <ul class="banner_bxslider">
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <li>
+                    <img src="@item.product_photo2" alt="@item.product_name">
+                    <div class="kf_schedule_wrap">
+                        <h3>@item.product_name</h3>
+                        <p>@Html.Raw(item.product_des)</p>
+                        <div class="kf_schedule_visit">
+                            <h4>
+                                <span>Giá: </span>
+                                @string.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:#,###}", item.product_price_public)
+                            </h4>
+                            <a href="@string.Format("/san-pham/{0}/{1}-{2}", item.cat.cat_url, configs.unicodeToNoMark(@item.product_name), @item.product_id)">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </li>
+            
+            }
+            
+        }
+
+    </ul>
+    
+</div>

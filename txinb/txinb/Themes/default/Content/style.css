@@ -1098,7 +1098,7 @@ p {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -29px 0 0 -45px;
+    margin: -29px 0 0 -75px;
     transform: scale(0);
     -webkit-transform: scale(0);
     -moz-transform: scale(0);
@@ -6184,4 +6184,23 @@ ul.kf_tag_list {
     height: 50px;
     text-align: center;
     cursor: pointer;
+}
+
+#ct_ttct .bx-controls-direction a {
+    opacity: 0;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+
+#ct_ttct .bx-wrapper:hover .bx-controls-direction a {
+    opacity: 1;
+}
+
+#ct_ttct .bx-controls-direction a {
+    display: none;
+}
+
+#ct_ttct .bx-wrapper:hover .bx-controls-direction a {
+    display: block;
 }

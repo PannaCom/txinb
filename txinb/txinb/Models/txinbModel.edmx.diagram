@@ -6,18 +6,18 @@
     <edmx:Diagrams>
       <Diagram DiagramId="220aa47850744a028d7078d305501ff4" Name="Diagram1">
         <EntityTypeShape EntityType="txinbModel.cat" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="txinbModel.product_img" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="txinbModel.product" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="txinbModel.Role" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="txinbModel.UserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="txinbModel.UserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="txinbModel.User" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="txinbModel.FK_cats_cats" ManuallyRouted="false" />
-        <AssociationConnector Association="txinbModel.FK_products_cats" ManuallyRouted="false" />
-        <AssociationConnector Association="txinbModel.FK_product_img_products" ManuallyRouted="false" />
         <AssociationConnector Association="txinbModel.FK_dbo_UserClaims_dbo_Users_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="txinbModel.FK_dbo_UserLogins_dbo_Users_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="txinbModel.UserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="txinbModel.product_img" Width="1.5" PointX="5.25" PointY="7.75" />
+        <EntityTypeShape EntityType="txinbModel.product" Width="1.5" PointX="3" PointY="7" />
+        <AssociationConnector Association="txinbModel.FK_products_cats" />
+        <AssociationConnector Association="txinbModel.FK_product_img_products" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

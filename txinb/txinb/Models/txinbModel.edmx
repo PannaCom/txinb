@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="txinbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="txinbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="cats">
           <Key>
             <PropertyRef Name="cat_id" />
@@ -20,6 +20,7 @@
             <PropertyRef Name="img_id" />
           </Key>
           <Property Name="img_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="img_url" Type="nvarchar" MaxLength="500" />
           <Property Name="img_title" Type="nvarchar" MaxLength="250" />
           <Property Name="img_alt" Type="nvarchar" MaxLength="250" />
           <Property Name="product_id" Type="bigint" />
@@ -30,6 +31,7 @@
           </Key>
           <Property Name="product_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="product_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="product_des" Type="nvarchar" MaxLength="555" />
           <Property Name="product_type" Type="int" />
           <Property Name="product_new_type" Type="int" />
           <Property Name="product_price_public" Type="int" />
@@ -222,8 +224,7 @@
             <End Role="products" EntitySet="products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="txinbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -238,36 +239,7 @@
           <Property Name="cat_parent_id" Type="Int32" />
           <NavigationProperty Name="cats1" Relationship="Self.FK_cats_cats" FromRole="cats" ToRole="cats1" />
           <NavigationProperty Name="cat1" Relationship="Self.FK_cats_cats" FromRole="cats1" ToRole="cats" />
-          <NavigationProperty Name="products" Relationship="Self.FK_products_cats" FromRole="cats" ToRole="products" />
-        </EntityType>
-        <EntityType Name="product_img">
-          <Key>
-            <PropertyRef Name="img_id" />
-          </Key>
-          <Property Name="img_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="img_title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="img_alt" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="product_id" Type="Int64" />
-          <NavigationProperty Name="product" Relationship="Self.FK_product_img_products" FromRole="product_img" ToRole="products" />
-        </EntityType>
-        <EntityType Name="product">
-          <Key>
-            <PropertyRef Name="product_id" />
-          </Key>
-          <Property Name="product_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="product_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="product_type" Type="Int32" />
-          <Property Name="product_new_type" Type="Int32" />
-          <Property Name="product_price_public" Type="Int32" />
-          <Property Name="product_photo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="product_photo2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="product_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="updated_date" Type="DateTime" Precision="3" />
-          <Property Name="deleted_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Boolean" />
-          <Property Name="cat_id" Type="Int32" />
-          <NavigationProperty Name="cat" Relationship="Self.FK_products_cats" FromRole="products" ToRole="cats" />
-          <NavigationProperty Name="product_img" Relationship="Self.FK_product_img_products" FromRole="products" ToRole="product_img" />
+          <NavigationProperty Name="products" Relationship="txinbModel.FK_products_cats" FromRole="cat" ToRole="product" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -330,30 +302,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_products_cats">
-          <End Role="cats" Type="Self.cat" Multiplicity="0..1" />
-          <End Role="products" Type="Self.product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cats">
-              <PropertyRef Name="cat_id" />
-            </Principal>
-            <Dependent Role="products">
-              <PropertyRef Name="cat_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_product_img_products">
-          <End Role="products" Type="Self.product" Multiplicity="0..1" />
-          <End Role="product_img" Type="Self.product_img" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="products">
-              <PropertyRef Name="product_id" />
-            </Principal>
-            <Dependent Role="product_img">
-              <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_UserClaims_dbo_Users_UserId">
           <End Role="Users" Type="Self.User" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -388,8 +336,6 @@
         </Association>
         <EntityContainer Name="txinbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="cats" EntityType="Self.cat" />
-          <EntitySet Name="product_img" EntityType="Self.product_img" />
-          <EntitySet Name="products" EntityType="Self.product" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="UserClaims" EntityType="Self.UserClaim" />
           <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
@@ -397,14 +343,6 @@
           <AssociationSet Name="FK_cats_cats" Association="Self.FK_cats_cats">
             <End Role="cats" EntitySet="cats" />
             <End Role="cats1" EntitySet="cats" />
-          </AssociationSet>
-          <AssociationSet Name="FK_products_cats" Association="Self.FK_products_cats">
-            <End Role="cats" EntitySet="cats" />
-            <End Role="products" EntitySet="products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_product_img_products" Association="Self.FK_product_img_products">
-            <End Role="products" EntitySet="products" />
-            <End Role="product_img" EntitySet="product_img" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_UserClaims_dbo_Users_UserId" Association="Self.FK_dbo_UserClaims_dbo_Users_UserId">
             <End Role="Users" EntitySet="Users" />
@@ -418,7 +356,72 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="product_img" EntityType="txinbModel.product_img" />
+          <EntitySet Name="products" EntityType="txinbModel.product" />
+          <AssociationSet Name="FK_products_cats" Association="txinbModel.FK_products_cats">
+            <End Role="cat" EntitySet="cats" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_img_products" Association="txinbModel.FK_product_img_products">
+            <End Role="product" EntitySet="products" />
+            <End Role="product_img" EntitySet="product_img" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="product_img">
+          <Key>
+            <PropertyRef Name="img_id" />
+          </Key>
+          <Property Name="img_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="img_url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="img_title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="img_alt" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="product_id" Type="Int64" />
+          <NavigationProperty Name="product" Relationship="txinbModel.FK_product_img_products" FromRole="product_img" ToRole="product" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="product_des" Type="String" MaxLength="555" FixedLength="false" Unicode="true" />
+          <Property Name="product_type" Type="Int32" />
+          <Property Name="product_new_type" Type="Int32" />
+          <Property Name="product_price_public" Type="Int32" />
+          <Property Name="product_photo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="product_photo2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="product_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <Property Name="deleted_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="cat_id" Type="Int32" />
+          <NavigationProperty Name="cat" Relationship="txinbModel.FK_products_cats" FromRole="product" ToRole="cat" />
+          <NavigationProperty Name="product_img" Relationship="txinbModel.FK_product_img_products" FromRole="product" ToRole="product_img" />
+        </EntityType>
+        <Association Name="FK_products_cats">
+          <End Type="txinbModel.cat" Role="cat" Multiplicity="0..1" />
+          <End Type="txinbModel.product" Role="product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="cat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_img_products">
+          <End Type="txinbModel.product" Role="product" Multiplicity="0..1" />
+          <End Type="txinbModel.product_img" Role="product_img" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="product_img">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -433,34 +436,6 @@
                 <ScalarProperty Name="cat_url" ColumnName="cat_url" />
                 <ScalarProperty Name="cat_pos" ColumnName="cat_pos" />
                 <ScalarProperty Name="cat_parent_id" ColumnName="cat_parent_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="product_img">
-            <EntityTypeMapping TypeName="txinbModel.product_img">
-              <MappingFragment StoreEntitySet="product_img">
-                <ScalarProperty Name="img_id" ColumnName="img_id" />
-                <ScalarProperty Name="img_title" ColumnName="img_title" />
-                <ScalarProperty Name="img_alt" ColumnName="img_alt" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="products">
-            <EntityTypeMapping TypeName="txinbModel.product">
-              <MappingFragment StoreEntitySet="products">
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="product_type" ColumnName="product_type" />
-                <ScalarProperty Name="product_new_type" ColumnName="product_new_type" />
-                <ScalarProperty Name="product_price_public" ColumnName="product_price_public" />
-                <ScalarProperty Name="product_photo" ColumnName="product_photo" />
-                <ScalarProperty Name="product_photo2" ColumnName="product_photo2" />
-                <ScalarProperty Name="product_content" ColumnName="product_content" />
-                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
-                <ScalarProperty Name="deleted_date" ColumnName="deleted_date" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -517,6 +492,36 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="product_img">
+            <EntityTypeMapping TypeName="txinbModel.product_img">
+              <MappingFragment StoreEntitySet="product_img">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="img_alt" ColumnName="img_alt" />
+                <ScalarProperty Name="img_title" ColumnName="img_title" />
+                <ScalarProperty Name="img_url" ColumnName="img_url" />
+                <ScalarProperty Name="img_id" ColumnName="img_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="txinbModel.product">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="deleted_date" ColumnName="deleted_date" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+                <ScalarProperty Name="product_content" ColumnName="product_content" />
+                <ScalarProperty Name="product_photo2" ColumnName="product_photo2" />
+                <ScalarProperty Name="product_photo" ColumnName="product_photo" />
+                <ScalarProperty Name="product_price_public" ColumnName="product_price_public" />
+                <ScalarProperty Name="product_new_type" ColumnName="product_new_type" />
+                <ScalarProperty Name="product_type" ColumnName="product_type" />
+                <ScalarProperty Name="product_des" ColumnName="product_des" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

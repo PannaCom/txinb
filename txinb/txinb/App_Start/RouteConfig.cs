@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -69,12 +70,53 @@ namespace txinb
             new { controller = "Products", action = "Delete", id = UrlParameter.Optional }
           );
 
+            //AdminRestoreOffice
+            routes.MapRoute(
+           "AdminRestoreProduct",
+           "admin/product/restore/{id}",
+           new { controller = "Products", action = "Restore", id = UrlParameter.Optional }
+         );
+
             routes.MapRoute(
             "AdminListProduct",
             "admin/product/list",
             new { controller = "Products", action = "List" }
           );
 
+            #region 404 Notfound
+            // 404 not found
+            routes.MapRoute(
+                "NotFound",
+                "{url}",
+                new { controller = "Home", action = "NotFoundPage" }
+            );
+            #endregion
+
+            routes.MapRoute(
+                "chitietsanpham",
+                "san-pham/{danhmuc}/{tensanpham}-{id}",
+                new { controller = "Home", action = "ProductDetail", danhmuc = UrlParameter.Optional, tensanpham = UrlParameter.Optional, id = UrlParameter.Optional }
+            );
+
+            // Chi tiết sản phẩm
+            //routes.Add("chitietsanpham", new SeoFriendlyRoute("san-pham/{danhmuc}/{tensanpham}-{id}",
+            //    new RouteValueDictionary(
+            //        new
+            //        {
+            //            controller = "Home",
+            //            action = "ProductDetail",
+            //            danhmuc = UrlParameter.Optional,
+            //            tensanpham = UrlParameter.Optional,
+            //            id = UrlParameter.Optional
+            //        }),
+            //    new MvcRouteHandler()));
+
+            // danh mục sản phẩm
+            routes.MapRoute(
+                "danhmucsanpham",
+                "danh-muc/{url}-{id}",
+                new { controller = "Home", action = "ProductCat", id = UrlParameter.Optional, url = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",
@@ -85,4 +127,44 @@ namespace txinb
 
         }
     }
+
+    //public class SeoFriendlyRoute : Route
+    //{
+    //    public SeoFriendlyRoute(string url, RouteValueDictionary defaults, IRouteHandler routeHandler)
+    //        : base(url, defaults, routeHandler)
+    //    {
+    //    }
+
+    //    public override RouteData GetRouteData(HttpContextBase httpContext)
+    //    {
+    //        var routeData = base.GetRouteData(httpContext);
+
+    //        if (routeData != null)
+    //        {
+    //            if (routeData.Values.ContainsKey("id"))
+    //                routeData.Values["id"] = GetIdValue(routeData.Values["id"]);
+    //        }
+
+    //        return routeData;
+    //    }
+
+    //    private object GetIdValue(object id)
+    //    {
+    //        if (id != null)
+    //        {
+    //            string idValue = id.ToString();
+
+    //            var regex = new Regex(@"^(?<id>\d+).*$");
+    //            var match = regex.Match(idValue);
+
+    //            if (match.Success)
+    //            {
+    //                return match.Groups["id"].Value;
+    //            }
+    //        }
+
+    //        return id;
+    //    }
+    //}
+
 }

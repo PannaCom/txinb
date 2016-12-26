@@ -21,6 +21,7 @@ namespace txinb.Models
     
         public long product_id { get; set; }
         public string product_name { get; set; }
+        public string product_des { get; set; }
         public Nullable<int> product_type { get; set; }
         public Nullable<int> product_new_type { get; set; }
         public Nullable<int> product_price_public { get; set; }

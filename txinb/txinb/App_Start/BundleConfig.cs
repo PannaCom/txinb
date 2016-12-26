@@ -26,6 +26,18 @@ namespace txinb
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datatable").Include(
+                    "~/Content/admin/vendor/datatable/jquery.dataTables.min.js",
+                    "~/Content/admin/vendor/datatable/dataTables.bootstrap.min.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/dropzonescripts").Include(
+                     "~/Scripts/dropzone/dropzone.js"));
+
+            bundles.Add(new StyleBundle("~/Content/dropzonescss").Include(
+                     "~/Scripts/dropzone/basic.css",
+                     "~/Scripts/dropzone/dropzone.css"));
         }
     }
 }
