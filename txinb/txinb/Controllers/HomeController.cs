@@ -69,6 +69,12 @@ namespace txinb.Controllers
             return PartialView("_LoadProductInvolve", model);
         }
 
+        public ActionResult LoadProductNew()
+        {
+            var model = (from s in db.products where s.status == true orderby s.updated_date descending select s).ToList().Take(10).ToList();
+            return PartialView("_LoadProductNew", model);
+        }
+
         public ActionResult ProductCat(int? id, int? pg)
         {
             if (id == null || id == 0)
@@ -99,11 +105,19 @@ namespace txinb.Controllers
             return View(data.ToList().ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult LoadInfoCat(int? id)
+        public ActionResult LoadMenu()
         {
-            var model = db.cats.Where(x => x.cat_id == id).FirstOrDefault();
-            return PartialView("_LoadInfoCat", model);
+            var menu = (from c in db.cats where c.cat_parent_id != null select c);
+            string _menu = "";
+            foreach (var item in menu)
+            {
+                var li = string.Format("<li><a href='danh-muc/{0}-{1}'>{2}</a>", item.cat_url, item.cat_id, item.cat_name);
+                _menu += li + "</li>";
+            }
+            return PartialView("_MenuPartial", _menu);
         }
+
+        
 
     }
 }

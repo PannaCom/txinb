@@ -988,8 +988,9 @@
     <Content Include="Themes\default\Views\Home\ProductDetail.cshtml" />
     <Content Include="Themes\default\Views\Home\_LoadProductInvolve.cshtml" />
     <Content Include="Themes\default\Views\Home\ProductCat.cshtml" />
-    <Content Include="Themes\default\Views\Home\_LoadInfoCat.cshtml" />
     <Content Include="Themes\default\Views\Home\_LoadProductCat.cshtml" />
+    <Content Include="Themes\default\Views\Home\_LoadProductNew.cshtml" />
+    <Content Include="Themes\default\Views\Shared\_MenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
