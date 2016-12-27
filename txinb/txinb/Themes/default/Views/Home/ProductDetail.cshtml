@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "Sản phẩm ";
-    string url_imgproduct = "http://";
+    string url_imgproduct = "";
     string product_des = "";
     if (Model != null)
     {
@@ -25,13 +25,17 @@
 
 @{
     string url = Request.Url.Authority + HttpContext.Current.Request.RawUrl.ToString();
+    string host = Request.Url.Authority;
     if (Request.ServerVariables["HTTPS"] == "on")
     {
         url = "https://" + url;
+        host = "https://" + host;
     }
     else
     {
         url = "http://" + url;
+        host = "http://" + host;
+        
     }
 }
 
@@ -65,7 +69,7 @@
     <meta property="og:url" content="@url">
     <meta property="og:title" content="@Html.Raw(ViewBag.Title)">
     <meta property="og:description" content="@Html.Raw(product_des)">
-    <meta property="og:image" itemprop="thumbnailUrl" content="@url_imgproduct">
+    <meta property="og:image" itemprop="thumbnailUrl" content="@host@url_imgproduct">
 }
 
 <!--Property Detail Wrap Start-->
