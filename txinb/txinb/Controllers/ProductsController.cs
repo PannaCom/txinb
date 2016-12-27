@@ -326,21 +326,22 @@ namespace txinb.Controllers
                             System.IO.Directory.CreateDirectory(pathString);
 
                         var path = string.Format("{0}\\{1}", pathString, _fileName);
-                        System.Drawing.Image bm = System.Drawing.Image.FromStream(file.InputStream);
+                       // System.Drawing.Image bm = System.Drawing.Image.FromStream(file.InputStream);
                         // Thay đổi kích cỡ
-                        bm = ResizeBitmap((Bitmap)bm, 1920, 790); /// new width, height
-                        // Giảm dung lượng ảnh trước khi lưu
-                        ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
-                        ImageCodecInfo ici = null;
-                        foreach (ImageCodecInfo codec in codecs)
-                        {
-                            if (codec.MimeType == "image/jpeg")
-                                ici = codec;
-                        }
-                        EncoderParameters ep = new EncoderParameters();
-                        ep.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, (long)80);
-                        bm.Save(path, ici, ep);
+                        //bm = ResizeBitmap((Bitmap)bm, 1920, 790); /// new width, height
+                        //// Giảm dung lượng ảnh trước khi lưu
+                        //ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+                        //ImageCodecInfo ici = null;
+                        //foreach (ImageCodecInfo codec in codecs)
+                        //{
+                        //    if (codec.MimeType == "image/jpeg")
+                        //        ici = codec;
+                        //}
+                        //EncoderParameters ep = new EncoderParameters();
+                        //ep.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, (long)80);
+                        //bm.Save(path, ici, ep);
                         //bm.Save(path);
+                        file.SaveAs(path);
                         fName = "/images/photos/" + _fileName;
                     }
                 }
