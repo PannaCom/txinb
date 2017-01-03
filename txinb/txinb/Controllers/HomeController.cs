@@ -117,6 +117,11 @@ namespace txinb.Controllers
             return PartialView("_MenuPartial", _menu);
         }
 
+        public ActionResult LoadMultiProductCat()
+        {
+            var model = from c in db.cats where c.cat_parent_id != null select c;
+            return PartialView("_LoadProductMulCat", model.ToList());
+        }
         
 
     }

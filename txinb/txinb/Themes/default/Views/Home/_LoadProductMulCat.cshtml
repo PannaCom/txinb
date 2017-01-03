@@ -1,0 +1,51 @@
+﻿@model List<txinb.Models.cat>
+@using txinb.Helpers;
+
+@if (Model != null)
+{
+    foreach (var item in @Model)
+    {
+        <!--Our Agent Warp Start-->
+        <section class="kf_our_agent_bg">
+            <div class="container">
+                <!--Heading Wrap Start-->
+                <div class="kf_heading_1">
+                    <h3>@item.cat_name</h3>
+                    <span class="kf_property_line"></span>
+                </div>
+                <!--Heading Wrap End-->
+                <!--Agent List Wrap Start-->
+                <div class="kf_agent_slider owl-carousel owl-theme">
+                    @if (item.products.Count > 0)
+                    {
+                        foreach (var product in item.products)
+                        {
+                            <div class="item">
+                                <div class="kf_agent_wrap">
+                                    <figure>
+                                        <img src="@product.product_photo" alt="@product.product_name">
+                                        <figcaption>
+                                            <span class="kf_listing_overlay"></span>
+                                        </figcaption>
+                                    </figure>
+                                    <div class="kf_agent_des">
+                                        <h6><a href="@string.Format("/san-pham/{0}/{1}-{2}", item.cat_url, configs.unicodeToNoMark(@product.product_name), @product.product_id)">@product.product_name</a></h6>
+                                        <span class="kf_property_line"></span>
+                                        <span style="display: block;">
+                                            Giá: @string.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:#,###}", product.product_price_public) <b>đồng.</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <!--Agent List Wrap End-->
+
+            </div>
+        </section>
+        <!--Our Agent Warp End-->
+    }
+}
+
