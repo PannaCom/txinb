@@ -30,7 +30,7 @@
 ===================================*/
 
 .bx-wrapper .bx-viewport {
-	
+	height: 555px!important;
 }
 
 .bx-wrapper .bx-pager,
