@@ -162,7 +162,7 @@ namespace txinb.Controllers
 
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(long? id)
         {
             if (id == null || id == 0)
             {
@@ -179,7 +179,7 @@ namespace txinb.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int? id)
+        public async Task<ActionResult> DeleteConfirmed(long? id)
         {
             product _model = await db.products.FindAsync(id);
             if (_model == null)
@@ -414,51 +414,7 @@ namespace txinb.Controllers
             }
             return RedirectToRoute("AdminEditProduct", new { id = idproduct });
         }
-
-        public ActionResult Delete(long? id)
-        {
-            if (id == null || id == 0)
-            {
-                return RedirectToRoute("Admin");
-            }
-            product model = db.products.Find(id);
-            if (model == null)
-            {
-                return View();
-            }
-            return View(model);
-        }
-
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(long? id)
-        {
-            product model = await db.products.FindAsync(id);
-            if (model == null)
-            {
-                return View();
-            }
-            //if (model..Count > 0)
-            //{
-            //    TempData["Errored"] = "Tòa nhà này không thể xóa. Vì đang chứa nhiều dịch vụ.";
-            //    return RedirectToRoute("AdminDeleteOffice", new { id = id });
-            //}
-            try
-            {
-                model.deleted_date = DateTime.Now;
-                model.status = false;
-                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
-                await db.SaveChangesAsync();
-                TempData["Deleted"] = "Đã xóa sản phẩm thành công.";
-            }
-            catch (Exception ex)
-            {
-                configs.SaveTolog(ex.ToString());
-            }
-
-            return RedirectToRoute("AdminListProduct");
-        }
+        
 
         //RestoreOffice       
         public async Task<ActionResult> Restore(long? id)
