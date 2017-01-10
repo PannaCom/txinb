@@ -148,10 +148,10 @@
                             }
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.product_price_public, htmlAttributes: new { @class = "control-label col-md-4 required-after" })
+                                @Html.LabelFor(model => model.product_price_public, htmlAttributes: new { @class = "control-label col-md-4" })
                                 <div class="col-md-6">
                                     @Html.TextBoxFor(m => m.product_price_public, htmlAttributes: new { @class = "form-control", placeholder = "Nhập giá sản phẩm.", type = "number" })
-                                    @Html.ValidationMessageFor(model => model.product_price_public, "", new { @class = "text-danger" })
+                                    @*@Html.ValidationMessageFor(model => model.product_price_public, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
 

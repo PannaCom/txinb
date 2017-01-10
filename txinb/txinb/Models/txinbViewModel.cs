@@ -35,7 +35,6 @@ namespace txinb.Models
         }
     }
 
-
     public class ProductVM
     {
         public long product_id { get; set; }
@@ -48,7 +47,7 @@ namespace txinb.Models
         [Required(ErrorMessage = "Vui lòng nhập {0}")]
         [Display(Name = "Loại tin")]
         public Nullable<int> product_new_type { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập {0}")]
+        //[Required(ErrorMessage = "Vui lòng nhập {0}")]
         [Display(Name = "Giá sản phẩm")]
         public Nullable<int> product_price_public { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập {0}")]
@@ -69,4 +68,6 @@ namespace txinb.Models
         [Display(Name = "Mô tả sản phẩm")]
         public string product_des { get; set; }
     }
+
+
 }

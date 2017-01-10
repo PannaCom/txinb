@@ -32,7 +32,16 @@
                                         <h6><a href="@string.Format("/san-pham/{0}/{1}-{2}", item.cat_url, configs.unicodeToNoMark(@product.product_name), @product.product_id)">@product.product_name</a></h6>
                                         <span class="kf_property_line"></span>
                                         <span style="display: block;">
-                                            Giá: @string.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:#,###}", product.product_price_public) <b>đồng.</b>
+                                            Giá: @*@string.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:#,###}", product.product_price_public) <b>đồng.</b>*@
+                                            @if (product.product_price_public != null && product.product_price_public > 0)
+                                            {
+                                               <text>@string.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:#,###}", product.product_price_public)</text> <b>đồng.</b>
+
+                                            }
+                                            else
+                                            {
+                                                <text>Thỏa thuận</text>
+                                            }
                                         </span>
                                     </div>
                                 </div>
