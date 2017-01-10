@@ -54,7 +54,7 @@ namespace txinb.Models
         [Required(ErrorMessage = "Vui lòng nhập {0}")]
         [Display(Name = "Hình ảnh sản phẩm")]
         public string product_photo { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập {0}")]
+        //[Required(ErrorMessage = "Vui lòng nhập {0}")]
         [Display(Name = "Hình ảnh nổi bật")]
         public string product_photo2 { get; set; }
         [Display(Name = "Thông tin mô tả")]
