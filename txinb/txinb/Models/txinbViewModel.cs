@@ -50,7 +50,7 @@ namespace txinb.Models
         //[Required(ErrorMessage = "Vui lòng nhập {0}")]
         [Display(Name = "Giá sản phẩm")]
         public Nullable<int> product_price_public { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập {0}")]
+        //[Required(ErrorMessage = "Vui lòng nhập {0}")]
         [Display(Name = "Hình ảnh sản phẩm")]
         public string product_photo { get; set; }
         //[Required(ErrorMessage = "Vui lòng nhập {0}")]

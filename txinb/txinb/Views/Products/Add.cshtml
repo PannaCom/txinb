@@ -123,7 +123,7 @@
 
                         <div id="image_product" role="tabpanel" class="tab-pane">
                             <div class="form-group">
-                                @Html.LabelFor(m => m.product_photo, new { @class = "col-md-4 control-label required-after" })
+                                @Html.LabelFor(m => m.product_photo, new { @class = "col-md-4 control-label" })
                                 <div class="col-md-6">
                                     <div id="divproduct_photo" class="upanh">
                                         <a class="closed"><i class="fa fa-close fa-2x"></i></a>
@@ -136,12 +136,12 @@
                                         Nên chọn hình có kích thước 1x1, 500x500px, 400x310px
                                         và chọn hình ảnh có dung lượng không vượt quá 12 Mb.
                                     </span>
-                                    @Html.ValidationMessageFor(model => model.product_photo, "", new { @class = "text-danger" })
+                                    @*@Html.ValidationMessageFor(model => model.product_photo, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(m => m.product_photo2, new { @class = "col-md-4 control-label required-after" })
+                                @Html.LabelFor(m => m.product_photo2, new { @class = "col-md-4 control-label" })
                                 <div class="col-md-6">
                                     <div id="divproduct_photo2" class="upanh" style="width: 100%;">
                                         <a class="closed"><i class="fa fa-close fa-2x"></i></a>
@@ -154,7 +154,7 @@
                                         Nên chọn hình có kích thước 16:9, 1920x790px và
                                         chọn hình ảnh có dung lượng không vượt quá 12 Mb.
                                     </span>
-                                    @Html.ValidationMessageFor(model => model.product_photo2, "", new { @class = "text-danger" })
+                                    @@*Html.ValidationMessageFor(model => model.product_photo2, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
                         </div>
