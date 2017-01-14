@@ -75,14 +75,43 @@ namespace txinb.Controllers
             return PartialView("_LoadProductNew", model);
         }
 
-        public ActionResult ProductCat(int? id, int? pg)
+        //public ActionResult ProductCat(int? id, int? pg)
+        //{
+        //    if (id == null || id == 0)
+        //    {
+        //        return RedirectToRoute("NotFound");
+        //    }
+
+        //    var _cat = (from o in db.cats where o.cat_id == id select o).FirstOrDefault();
+        //    if (_cat == null)
+        //    {
+        //        return RedirectToRoute("NotFound");
+        //    }
+
+        //    ViewBag.TenDanhMuc = _cat.cat_name;
+        //    ViewBag.URLDanhMuc = _cat.cat_url;
+        //    ViewBag.IdDanhMuc = id;
+
+        //    int pageSize = 10;
+        //    if (pg == null) pg = 1;
+        //    int pageNumber = (pg ?? 1);
+        //    ViewBag.pg = pg;
+        //    var data = (from q in db.products where q.cat_id == id && q.status == true select q);
+        //    if (data == null)
+        //    {
+        //        return View(data);
+        //    }
+
+        //    return View(data.ToList().ToPagedList(pageNumber, pageSize));
+        //}
+
+        public ActionResult ProductCat(int? pg, int? id)
         {
             if (id == null || id == 0)
             {
                 return RedirectToRoute("NotFound");
             }
-
-            var _cat = (from o in db.cats where o.cat_id == id select o).FirstOrDefault();
+            var _cat = db.cats.Where(x => x.cat_id == id).FirstOrDefault();
             if (_cat == null)
             {
                 return RedirectToRoute("NotFound");
@@ -92,17 +121,58 @@ namespace txinb.Controllers
             ViewBag.URLDanhMuc = _cat.cat_url;
             ViewBag.IdDanhMuc = id;
 
-            int pageSize = 10;
+            int pageSize = 25;
             if (pg == null) pg = 1;
             int pageNumber = (pg ?? 1);
             ViewBag.pg = pg;
-            var data = (from q in db.products where q.cat_id == id && q.status == true select q);
-            if (data == null)
+            var data = GetArticleOfCat(id);
+
+            if (data.Count() == 0)
             {
-                return View(data);
+                return View();
             }
 
-            return View(data.ToList().ToPagedList(pageNumber, pageSize));
+            data = data.Where(x => x.status == true).ToList().OrderByDescending(x => x.updated_date);
+            return View(data.ToPagedList(pageNumber, pageSize));
+        }
+
+        public void SetArticles(ICollection<cat> ic, List<product> _articles)
+        {
+            foreach (var c1 in ic)
+            {
+                if (c1.products.Count > 0)
+                {
+                    _articles.AddRange(c1.products);
+                }
+                if (c1.cats1.Count > 0)
+                {
+                    SetArticles(c1.cats1, _articles);
+                }
+            }
+        }
+
+
+        public IEnumerable<product> GetArticleOfCat(int? id)
+        {
+            var _cat = db.cats.Where(x => x.cat_id == id).FirstOrDefault();
+            List<product> _articles = new List<product>();
+            if (_cat != null)
+            {
+                ViewBag.category = _cat.cat_name;
+                if (_cat.cats1.Count > 0)
+                {
+                    SetArticles(_cat.cats1, _articles);
+                }
+                else
+                {
+                    _articles.AddRange(_cat.products);
+                }
+            }
+            else
+            {
+                _articles = null;
+            }
+            return _articles;
         }
 
         public ActionResult LoadMenu()
@@ -121,6 +191,36 @@ namespace txinb.Controllers
         {
             var model = from c in db.cats where c.cat_parent_id != null select c;
             return PartialView("_LoadProductMulCat", model.ToList());
+        }
+
+        public PartialViewResult _MenuLeftPartial()
+        {
+            List<DanhMuc> data = db.cats.Select(x => new DanhMuc()
+            {
+                CatId = x.cat_id,
+                CatName = x.cat_name,
+                ParentId = x.cat_parent_id,
+                PositionIndex = x.cat_pos,
+                CatUrl = x.cat_url
+            }).OrderBy(o => o.PositionIndex).ToList();
+
+            var presidents = data.Where(x => x.ParentId == null).FirstOrDefault();
+            SetChildren(presidents, data);
+
+            return PartialView("_MenuLeftPartial", presidents);
+        }
+
+        private void SetChildren(DanhMuc model, List<DanhMuc> danhmuc)
+        {
+            var childs = danhmuc.Where(x => x.ParentId == model.CatId).ToList();
+            if (childs.Count > 0)
+            {
+                foreach (var child in childs)
+                {
+                    SetChildren(child, danhmuc);
+                    model.DanhMucs.Add(child);
+                }
+            }
         }
         
 
